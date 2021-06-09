@@ -13,6 +13,8 @@ import software.amazon.awssdk.enhanced.dynamodb.model.PageIterable;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +77,15 @@ public class UserPost extends DynamoDbBasePO {
 
     public void createPost() {
         userPostTable.putItem(this);
+    }
+
+    public static UserPost getPost(String userId, Long createTimestampEpoch) {
+        return userPostTable.getItem(
+                Key.builder()
+                        .partitionValue(userId)
+                        .sortValue(createTimestampEpoch)
+                        .build()
+        );
     }
 
     public static PageIterable<UserPost> getAllPosts(String userId,

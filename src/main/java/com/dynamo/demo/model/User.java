@@ -45,6 +45,7 @@ public class User extends DynamoDbBasePO {
     private Integer age;
     private String country;
     private String occupation;
+    private String email;
 
     private static final DynamoDbTable<User> userTable =
             enhancedClient.table("user", TableSchema.fromBean(User.class));

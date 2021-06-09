@@ -31,6 +31,17 @@ public class UsersPostController {
                 HttpStatus.CREATED);
     }
 
+    @GetMapping("/{userId}/{createTimestamp}/post")
+    public ResponseEntity<UserPost> getPost(@PathVariable String userId,
+                                            @PathVariable String createTimestamp) {
+
+        System.out.println(UserPost.getPost(userId, Long.valueOf(createTimestamp)));
+        UserPost userPost = UserPost.getPost(userId, Long.valueOf(createTimestamp));
+
+        return ResponseEntity.ok(userPost);
+
+    }
+
     @GetMapping("/{userId}/posts")
     public ResponseEntity<List<UserPost>> getPosts(@PathVariable String userId,
                                                    @RequestParam(required = false) String startTimestamp,
